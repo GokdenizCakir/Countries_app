@@ -48,15 +48,32 @@ export default function Countries({
     });
   }
 
+  if (countryFilter) {
+    countriesDatabase = data.countries.filter((country: Country) => {
+      return country.name
+        .toLowerCase()
+        .trim()
+        .includes(countryFilter.toLowerCase().trim());
+    });
+  }
+
   return (
     <section className='d-flex flex-column mt-2'>
       <h2 className='pt-4 text-light text-center'>List of Countries</h2>
+
+      {/* Bu divin sabit boyutu olursa daha güzel gözükür */}
       <div className='countriesList d-flex flex-wrap justify-content-center mt-2'>
         {countriesDatabase.length > 0 ? (
           countriesDatabase.map((country: Country) => (
             <div key={country.code} className='countryCard'>
-              <Link to={`/details/${country.name}`} className='countryName text-center'>
-                <strong><em>{country.name}</em></strong> {country.emoji}
+              <Link
+                to={`/details/${country.name}`}
+                className='countryName text-center'
+              >
+                <strong>
+                  <em>{country.name}</em>
+                </strong>{' '}
+                {country.emoji}
               </Link>
               <div className='countryInfo'>
                 <p>
